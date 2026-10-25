@@ -1,8 +1,51 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TrustVault</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body>
-<header><a class="brand" href="{{ url_for('home') }}">TrustVault</a>{% if session.get('uid') %}<nav>
-<a href="{{ url_for('documents') }}">Documents</a>{% if current_user and current_user.role in ['admin','owner'] %}<a href="{{ url_for('upload') }}">Upload</a>{% endif %}
-{% if current_user and current_user.role == 'admin' %}<a href="{{ url_for('audit_view') }}">Audit trail</a>{% endif %}
-<form method="post" action="{{ url_for('logout') }}" class="inline"><input type="hidden" name="_csrf" value="{{ csrf_token() }}"><button class="linkbtn">Log out</button></form></nav>{% endif %}</header>
-<main>{% with messages=get_flashed_messages() %}{% if messages %}<div class="flash">{% for m in messages %}<p>{{ m }}</p>{% endfor %}</div>{% endif %}{% endwith %}
-{% block content %}{% endblock %}</main><footer>TrustVault · Demo project · Protecting documents with server-side authorization</footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TrustVault</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <a class="brand" href="{{ url_for('home') }}">TrustVault</a>
+
+        {% if session.get('uid') %}
+        <nav>
+            <a href="{{ url_for('documents') }}">Documents</a>
+
+            {% if current_user and current_user.role in ['admin', 'owner'] %}
+                <a href="{{ url_for('upload') }}">Upload</a>
+            {% endif %}
+
+            {% if current_user and current_user.role == 'admin' %}
+                <a href="{{ url_for('audit_view') }}">Audit trail</a>
+            {% endif %}
+
+            <form method="post" action="{{ url_for('logout') }}" class="inline">
+                <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+                <button class="linkbtn" type="submit">Log out</button>
+            </form>
+        </nav>
+        {% endif %}
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        TrustVault · Demo project · Protecting documents with server-side authorization
+    </footer>
+</body>
+</html>
