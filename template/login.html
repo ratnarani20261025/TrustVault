@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel narrow">
+    <h1>Secure document access</h1>
+    <p class="muted">Sign in to TrustVault</p>
+
+    <form method="post">
+        <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+
+        <label>
+            Username
+            <input
+                type="text"
+                name="username"
+                autocomplete="username"
+                required
+            >
+        </label>
+
+        <label>
+            Password
+            <input
+                type="password"
+                name="password"
+                autocomplete="current-password"
+                required
+            >
+        </label>
+
+        <button type="submit">Sign in</button>
+    </form>
+
+    <p class="muted small">
+        Demo accounts are listed in README.md.
+        Change all demo passwords before public deployment.
+    </p>
+</section>
+{% endblock %}
